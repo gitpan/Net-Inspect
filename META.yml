@@ -1,9 +1,9 @@
 --- #YAML:1.0
 name:               Net-Inspect
-version:            0.18
+version:            0.19
 abstract:           ~
 author:  []
-license:            unknown
+license:            perl
 distribution_type:  module
 configure_requires:
     ExtUtils::MakeMaker:  0
