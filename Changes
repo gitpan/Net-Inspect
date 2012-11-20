@@ -1,0 +1,59 @@
+0.21 2012/11/20
+- update to 0.20 - forgot to include files into MANIFEST
+0.20 2012/11/19
+- major change on tools/http_inspection_proxy. complete rewrite and support
+  Net::IMP content filters added
+- small bugfixes and enhancements
+0.19 2012/10/1
+- put license into Makefile.PL
+0.18 2012/06/14
+- fixed detach inside Socks::guess_protocol, flow to detach was missing
+0.17 2012/06/11
+- basic support for gaps in the data stream in L7::HTTP and above.
+0.16 2012/06/06
+- harmonize behavior of offset method in L7::HTTP
+0.15 2012/06/05
+- added tool tools/unsocksify-pcap.pl to extract and unsocksify socks4
+  connections from one pcap into another
+0.14 2012/06/04
+- Socks4 encapsulation
+  - Net::Inspect::L5::Socks4
+  - including autodetect
+  - support in httpflow to detect http requests inside socks connections
+- bugfixes related to 0.13
+0.13 2012/05/30
+- L4::TCP: use as time in call of in() the arliest time in the data
+- TCP and above: added dir and time to fatal handlers
+- L7::HTTP: method offset to get position in stream
+0.12 2012/05/25
+- option --anon-stats for httpflow to generate statistics useful for benchmarks
+- L7::HTTP set meta.time for current request when receiving new request header
+  instead of leaving it to start of tcp connection
+0.11 2012/03/27
+- fix in L7::HTTP no valid data in request header
+0.10 2012/03/27
+- dummy expire in base flow object
+0.09 2012/03/06
+- new tools/live-http-headers.pl
+0.08 2012/02/28
+- fixed Changes, added L4::UDP and rtpxtract and renamed tcpudpflow
+  to MANIFEST
+0.07 2012/02/27
+- added rtpxtract
+0.06 2012/02/27 , 0.05 2012/02/27 
+- added L4::UDP
+- added expire for TCP and UDP connections
+- upgraded tcpflow to tcpudpflow
+0.04 2012/01/08 
+- put Net/Inspect.pm (which just contains documentation for now)
+  inside package Net::Inspect
+0.03 2011/12/21 
+- add HTTP::Request, HTTP::Response and Scalar::Util to prereq
+  Thanks to ANDK for reporting
+  https://rt.cpan.org/Ticket/Display.html?id=73417
+- fixes and enhancements for httpflow
+0.02 2011/12/19 
+- fix http_inspection_proxy loading of Net::PcapWriter
+- make all formatting indent=4 tabstop=8
+0.01 2011/12/19 
+- initial release with working tcpflow, httpflow and http_inspection_proxy
