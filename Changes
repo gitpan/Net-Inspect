@@ -1,6 +1,7 @@
-0.22 2012/11/22
+0.23 2012/11/22
 - removed tools/http_inspection_proxy from distribution.
   It is now available as a seperate distribution App::HTTP_Proxy_IMP
+0.22 2012/11/22
 - enhanced Net::Inspect::Debug with ideas and code from Net::IMP::Debug for
   better integration into other debugging frameworks
 0.21 2012/11/20
