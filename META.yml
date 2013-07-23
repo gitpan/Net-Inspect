@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Net-Inspect
-version:            0.300
+version:            0.302
 abstract:           ~
 author:  []
 license:            perl
