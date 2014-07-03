@@ -29,4 +29,5 @@ tools/rtpxtract.pl
 tools/live-http-headers.pl
 tools/unsocksify-pcap.pl
 tools/README
-META.yml                                 Module meta-data (added by MakeMaker)
+META.yml                                 Module YAML meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)
