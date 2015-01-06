@@ -67,7 +67,7 @@ my $token_value_cont = qr{
 # squid seems to just strip invalid headers, try the same
 my $xtoken = qr{[^()<>@,;:\\"/\[\]?={}\x00-\x20\x7f-\xff][^:[:^print:]]*};
 
-my %METHODS_WITHOUT_RQBODY = map { ($_,1) } @{METHODS_WITHOUT_RPBODY()};
+my %METHODS_WITHOUT_RQBODY = map { ($_,1) } @{METHODS_WITHOUT_RQBODY()};
 my %METHODS_WITH_RQBODY    = map { ($_,1) } @{METHODS_WITH_RQBODY()};
 my %METHODS_WITHOUT_RPBODY = map { ($_,1) } @{METHODS_WITHOUT_RPBODY()};
 my %CODE_WITHOUT_RPBODY    = map { ($_,1) } @{CODE_WITHOUT_RPBODY()};
@@ -245,7 +245,7 @@ sub _in0 {
 	    # bitmask what is done: rpbody|rphdr|rqerror|rqbody|rqhdr
 	    state    => 0,
 	    rqclen   => undef,   # open content-length request
-	    rpclen   => undef,   # open content-length respone
+	    rpclen   => undef,   # open content-length response
 	    # chunked mode for request|response:
 	    #   false - no chunking
 	    #   1,r[qp]clen == 0 - next will be chunk size
@@ -303,6 +303,13 @@ sub _in0 {
 		if ( @$cl>1 and do { my %x; @x{@$cl} = (); keys(%x) } > 1 ) {
 		    ($obj||$self)->fatal(
 			"multiple different content-length header in request",
+			0,$time);
+		    $rq->{state} |= RQ_ERROR;
+		    return $bytes;
+		}
+		if ($cl->[0] !~m{^(\d+)$}) {
+		    ($obj||$self)->fatal(
+			"invalid content-length '$cl->[0]' in request",
 			0,$time);
 		    $rq->{state} |= RQ_ERROR;
 		    return $bytes;
@@ -633,7 +640,14 @@ sub _in1 {
 	    if ( my $cl = $kv{'content-length'} ) {
 		if ( @$cl>1 and do { my %x; @x{@$cl} = (); keys(%x) } > 1 ) {
 		    ($obj||$self)->fatal(
-			"multiple different content-length header in request",
+			"multiple different content-length header in response",
+			1,$time);
+		    $self->{error} = 1;
+		    return $bytes;
+		}
+		if ($cl->[0] !~m{^(\d+)$}) {
+		    ($obj||$self)->fatal(
+			"invalid content-length '$cl->[0]' in response",
 			1,$time);
 		    $self->{error} = 1;
 		    return $bytes;
